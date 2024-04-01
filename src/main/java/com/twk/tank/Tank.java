@@ -4,10 +4,10 @@ import java.awt.*;
 
 public class Tank {
     private int x, y;
-    private final int SPEED = 10;
 
     private TankFrame tf;
-
+    private static int TANK_WIDTH = ResourceMgr.tankD.getWidth();
+    private static int TANK_HEIGHT = ResourceMgr.tankD.getHeight();
 
     Dir dir;
     private boolean moving = false;
@@ -29,18 +29,29 @@ public class Tank {
         this.y = y;
         this.dir = dir;
         this.tf = tf;
-
     }
 
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.yellow);
-        g.fillRect(x,y,50,50);
-        g.setColor(c);
+        switch (dir) {
+            case left:
+                g.drawImage(ResourceMgr.tankL, x, y, null);
+                break;
+            case up:
+                g.drawImage(ResourceMgr.tankU, x, y, null);
+                break;
+            case right:
+                g.drawImage(ResourceMgr.tankR, x, y, null);
+                break;
+            case down:
+                g.drawImage(ResourceMgr.tankD, x, y, null);
+                break;
+        }
         move();
     }
-    private void move(){
+
+    private void move() {
         if (moving) {
+            int SPEED = 6;
             switch (dir) {
                 case left:
                     x -= SPEED;
@@ -61,6 +72,8 @@ public class Tank {
     }
 
     public void fire() {
-        tf.Bullets.add(new Bullet(this.x,this.y,this.dir,this.tf));
+        int X = x + TANK_WIDTH/2 - Bullet.WIDTH_BULLET/2;
+        int Y = y + TANK_HEIGHT/2 - Bullet.HEIGHT_BULLET/2;
+        tf.Bullets.add(new Bullet(X, Y, this.dir, this.tf));
     }
 }

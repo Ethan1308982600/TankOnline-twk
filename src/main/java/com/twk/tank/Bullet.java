@@ -3,7 +3,11 @@ package com.twk.tank;
 import java.awt.*;
 
 public class Bullet {
-    private static final int SPEED = 10;
+    private static final int SPEED = 6;
+
+
+    public static int WIDTH_BULLET = ResourceMgr.bulletD.getWidth();
+    public static int HEIGHT_BULLET = ResourceMgr.bulletD.getHeight();
     private static int WIDTH = 5, HEIGHT = 5;
     private int x, y;
     private Dir dir;
@@ -21,10 +25,20 @@ public class Bullet {
         if (!live) {
             tf.Bullets.remove(this);
         } else {
-            Color c = g.getColor();
-            g.setColor(Color.RED);
-            g.fillOval(x, y, WIDTH, HEIGHT);
-            g.setColor(c);
+            switch (dir) {
+                case left:
+                    g.drawImage(ResourceMgr.bulletL, x, y, null);
+                    break;
+                case up:
+                    g.drawImage(ResourceMgr.bulletU, x, y, null);
+                    break;
+                case right:
+                    g.drawImage(ResourceMgr.bulletR, x, y, null);
+                    break;
+                case down:
+                    g.drawImage(ResourceMgr.bulletD, x, y, null);
+                    break;
+            }
             move();
         }
     }
