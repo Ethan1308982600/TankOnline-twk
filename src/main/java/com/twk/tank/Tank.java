@@ -3,11 +3,14 @@ package com.twk.tank;
 import java.awt.*;
 
 public class Tank {
-    private int x, y;
+    private boolean live = true;
+    private int x;
+
+    private int y;
 
     private TankFrame tf;
-    private static int TANK_WIDTH = ResourceMgr.tankD.getWidth();
-    private static int TANK_HEIGHT = ResourceMgr.tankD.getHeight();
+    public static int TANK_WIDTH = ResourceMgr.tankD.getWidth();
+    public static int TANK_HEIGHT = ResourceMgr.tankD.getHeight();
 
     Dir dir;
     private boolean moving = false;
@@ -18,6 +21,13 @@ public class Tank {
 
     public Dir getDir() {
         return dir;
+    }
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     public void setDir(Dir dir) {
@@ -32,6 +42,10 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        if(!live){
+            tf.Tanks.remove(this);
+            return;
+        }
         switch (dir) {
             case left:
                 g.drawImage(ResourceMgr.tankL, x, y, null);
@@ -75,5 +89,9 @@ public class Tank {
         int X = x + TANK_WIDTH/2 - Bullet.WIDTH_BULLET/2;
         int Y = y + TANK_HEIGHT/2 - Bullet.HEIGHT_BULLET/2;
         tf.Bullets.add(new Bullet(X, Y, this.dir, this.tf));
+    }
+
+    public void die() {
+        this.live = false;
     }
 }

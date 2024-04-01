@@ -46,16 +46,20 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-//        System.out.println("paint");
-        Color c = g.getColor();
         g.setColor(Color.white);
         g.drawString("子弹的数量:" + Bullets.size(), 10, 60);
+        g.drawString("敌方坦克的数量" + Tanks.size(),10,80);
         mytank.paint(g);
         for (int i = 0; i < Bullets.size(); i++) {
             Bullets.get(i).paint(g);
         }
         for (int i = 0; i < Tanks.size(); i++) {
             Tanks.get(i).paint(g);
+        }
+        for (int i = 0; i < Bullets.size(); i++) {
+            for (int j = 0; j < Tanks.size(); j++){
+                Bullets.get(i).collideWith(Tanks.get(j));
+            }
         }
     }
 

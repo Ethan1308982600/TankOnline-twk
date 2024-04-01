@@ -42,6 +42,7 @@ public class Bullet {
             move();
         }
     }
+
     private void move() {
         switch (dir) {
             case left:
@@ -60,5 +61,18 @@ public class Bullet {
                 break;
         }
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAMA_HEIGHT) this.live = false;
+    }
+
+    public void collideWith(Tank tank) {
+        Rectangle rec1 = new Rectangle(this.x, this.y, WIDTH_BULLET, HEIGHT_BULLET);
+        Rectangle rec2 = new Rectangle(tank.getX(), tank.getY(), tank.TANK_WIDTH, tank.TANK_HEIGHT);
+        if (rec1.intersects(rec2)) {
+            tank.die();
+            this.die();
+        }
+    }
+
+    private void die() {
+        this.live = false;
     }
 }
