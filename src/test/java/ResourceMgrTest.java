@@ -12,7 +12,7 @@ public class ResourceMgrTest {
     @Test
     public void testImageLoading() {
         try {
-            BufferedImage  image = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("D:\\JavaIdeaProject\\TankOnlinee\\src\\images\\tankL.gif"));
+            BufferedImage  image = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images\\tankL.gif"));
             assertNotNull(image);
         } catch (IOException e) {
             throw new RuntimeException(e);
